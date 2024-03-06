@@ -1,9 +1,9 @@
-﻿using backend.Infrastructure.Authentication;
-using backend.Models;
-using backend.Models.RequestModels;
-using backend.Models.ResponseModels;
+﻿using Backend.Infrastructure.Authentication;
+using Backend.Models;
+using Backend.Models.RequestModels;
+using Backend.Models.ResponseModels;
 
-namespace backend.Service
+namespace Backend.Service
 {
     public interface IUserService
     {

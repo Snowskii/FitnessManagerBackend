@@ -1,7 +1,7 @@
-﻿using backend.Service;
+﻿using Backend.Service;
 
 
-namespace backend.Infrastructure
+namespace Backend.Infrastructure
 {
     public static class ServiceExtensions
     {

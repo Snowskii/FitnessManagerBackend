@@ -1,4 +1,4 @@
-﻿namespace backend.Infrastructure.Authentication
+﻿namespace Backend.Infrastructure.Authentication
 {
     public record class JwtOptions(
         string Issuer,
