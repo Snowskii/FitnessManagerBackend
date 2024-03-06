@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using backend.Infrastructure;
-using backend.Infrastructure.Authentication;
-using backend.Models;
-using backend.Models.RequestModels;
-using backend.Models.ResponseModels;
+using Backend.Infrastructure;
+using Backend.Infrastructure.Authentication;
+using Backend.Models;
+using Backend.Models.RequestModels;
+using Backend.Models.ResponseModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace backend.Service
+namespace Backend.Service
 {
     public class UserService : IUserService
     {

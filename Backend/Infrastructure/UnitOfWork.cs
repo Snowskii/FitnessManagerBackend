@@ -1,8 +1,7 @@
-﻿using backend.Repository;
-using backend.Repository.Interfaces;
-using Microsoft.AspNetCore.Identity;
+﻿using Backend.Repository;
+using Backend.Repository.Interfaces;
 
-namespace backend.Infrastructure
+namespace Backend.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

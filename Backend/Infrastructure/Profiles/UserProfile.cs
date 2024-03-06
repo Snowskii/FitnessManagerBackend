@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using backend.Models;
-using backend.Models.ResponseModels;
+using Backend.Models;
+using Backend.Models.ResponseModels;
 
-namespace backend.Infrastructure.Profiles
+namespace Backend.Infrastructure.Profiles
 {
     public class UserProfile : Profile
     {

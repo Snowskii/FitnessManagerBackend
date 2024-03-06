@@ -1,6 +1,6 @@
-using backend;
-using backend.Infrastructure;
-using backend.Infrastructure.Authentication;
+using Backend;
+using Backend.Infrastructure;
+using Backend.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

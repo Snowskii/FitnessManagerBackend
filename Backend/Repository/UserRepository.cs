@@ -1,12 +1,12 @@
-﻿using backend.Models;
-using backend.Models.RequestModels;
-using backend.Repository.Interfaces;
+﻿using Backend.Models;
+using Backend.Models.RequestModels;
+using Backend.Repository.Interfaces;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Identity;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 
-namespace backend.Repository
+namespace Backend.Repository
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository 
     {

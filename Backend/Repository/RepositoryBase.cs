@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace backend.Repository
+namespace Backend.Repository
 {
     public abstract class RepositoryBase<T> : Interfaces.IRepositoryBase<T> where T: class 
     {

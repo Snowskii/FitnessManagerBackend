@@ -1,4 +1,4 @@
-﻿namespace backend.Models.ResponseModels
+﻿namespace Backend.Models.ResponseModels
 {
     public class LoginResponseModel
     {

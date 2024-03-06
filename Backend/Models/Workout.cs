@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata;
 
-namespace backend.Models
+namespace Backend.Models
 {
     public class Workout
     {

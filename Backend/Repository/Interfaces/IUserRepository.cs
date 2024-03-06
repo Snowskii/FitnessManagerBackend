@@ -1,8 +1,8 @@
-﻿using backend.Models;
-using backend.Models.RequestModels;
-using backend.Models.ResponseModels;
+﻿using Backend.Models;
+using Backend.Models.RequestModels;
+using Backend.Models.ResponseModels;
 
-namespace backend.Repository.Interfaces
+namespace Backend.Repository.Interfaces
 {
     public interface IUserRepository : IRepositoryBase<User>
     {

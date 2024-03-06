@@ -1,6 +1,6 @@
-﻿using backend.Repository.Interfaces;
+﻿using Backend.Repository.Interfaces;
 
-namespace backend.Infrastructure
+namespace Backend.Infrastructure
 {
     public interface IUnitOfWork
     {

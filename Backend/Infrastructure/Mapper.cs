@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using backend.Infrastructure.Profiles;
+using Backend.Infrastructure.Profiles;
 
-namespace backend.Infrastructure
+namespace Backend.Infrastructure
 {
     public static class Mapper
     {
