@@ -3,6 +3,7 @@ using System;
 using Backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(ApplicationDataContext))]
-    partial class ApplicationDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240314183936_ExerciseTypeAmount")]
+    partial class ExerciseTypeAmount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,6 +56,8 @@ namespace Backend.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("WorkoutId");
 
                     b.ToTable("Exercises");
                 });
@@ -169,30 +174,23 @@ namespace Backend.Migrations
                     b.ToTable("Workouts");
                 });
 
-            modelBuilder.Entity("Backend.Models.WorkoutExercise", b =>
-                {
-                    b.Property<int>("ExerciseId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("WorkoutId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ExerciseId", "WorkoutId");
-
-                    b.HasIndex("WorkoutId");
-
-                    b.ToTable("WorkoutExercise");
-                });
-
             modelBuilder.Entity("Backend.Models.Exercise", b =>
                 {
                     b.HasOne("Backend.Models.User", "User")
-                        .WithMany("Exercises")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Backend.Models.Workout", "Workout")
+                        .WithMany("Exercises")
+                        .HasForeignKey("WorkoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("User");
+
+                    b.Navigation("Workout");
                 });
 
             modelBuilder.Entity("Backend.Models.UserMilestone", b =>
@@ -225,26 +223,6 @@ namespace Backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend.Models.WorkoutExercise", b =>
-                {
-                    b.HasOne("Backend.Models.Exercise", null)
-                        .WithMany("WorkoutExercises")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Backend.Models.Workout", null)
-                        .WithMany("WorkoutsExercises")
-                        .HasForeignKey("WorkoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Backend.Models.Exercise", b =>
-                {
-                    b.Navigation("WorkoutExercises");
-                });
-
             modelBuilder.Entity("Backend.Models.Milestone", b =>
                 {
                     b.Navigation("UserMilestones");
@@ -252,8 +230,6 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.User", b =>
                 {
-                    b.Navigation("Exercises");
-
                     b.Navigation("UserMilestones");
 
                     b.Navigation("Workouts");
@@ -261,7 +237,7 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Workout", b =>
                 {
-                    b.Navigation("WorkoutsExercises");
+                    b.Navigation("Exercises");
                 });
 #pragma warning restore 612, 618
         }

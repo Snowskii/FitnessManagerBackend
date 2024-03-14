@@ -20,6 +20,11 @@ namespace Backend
                 .HasMany(user => user.Milestones)
                 .WithMany(milestone => milestone.Users)
                 .UsingEntity<UserMilestone>();
+
+            builder.Entity<Workout>()
+                .HasMany(w => w.Exercises)
+                .WithMany(e => e.Workouts)
+                .UsingEntity<WorkoutExercise>();
         }
     }
 }

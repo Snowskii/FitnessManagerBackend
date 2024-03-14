@@ -6,6 +6,7 @@ namespace Backend.Infrastructure
     {
         IUserRepository UserRepository { get; }
         IWorkoutRepository WorkoutRepository { get; }
+        IExerciseRepository ExerciseRepository { get; }
         void Save();
     }
 }

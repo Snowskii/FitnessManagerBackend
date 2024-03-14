@@ -11,6 +11,8 @@ namespace Backend.Infrastructure
 
         private IWorkoutRepository _workoutRepository;
 
+        private IExerciseRepository _exerciseRepository;
+
         public IUserRepository UserRepository
         {
             get
@@ -34,6 +36,19 @@ namespace Backend.Infrastructure
                 }
 
                 return _workoutRepository;
+            }
+        }
+
+        public IExerciseRepository ExerciseRepository
+        {
+            get
+            {
+                if (_exerciseRepository == null)
+                {
+                    _exerciseRepository = new ExerciseRepository(dbContext);
+                }
+
+                return _exerciseRepository;
             }
         }
 

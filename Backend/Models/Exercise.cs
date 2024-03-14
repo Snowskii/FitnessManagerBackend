@@ -20,7 +20,15 @@ namespace Backend.Models
         [Required]
         public ExerciseType Type { get; set; }
 
+        public int TypeAmount { get; set; }
+
+        public int UserId { get; set; }
+
+        public User User { get; set; }
+
         public int WorkoutId { get; set; }
-        public Workout Workout { get; set; }
+        public List<Workout> Workouts { get; set; } = [];
+
+        public List<WorkoutExercise> WorkoutExercises { get; set; } = [];
     }
 }
