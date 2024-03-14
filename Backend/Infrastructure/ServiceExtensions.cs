@@ -13,6 +13,7 @@ namespace Backend.Infrastructure
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IWorkoutService, WorkoutService>();
         }
         public static void ConfigureMapper(this IServiceCollection services)
         {

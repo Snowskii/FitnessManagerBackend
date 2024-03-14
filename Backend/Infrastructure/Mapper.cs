@@ -16,6 +16,7 @@ namespace Backend.Infrastructure
             new (mc =>
             {
                 mc.AddProfile<UserProfile>();
+                mc.AddProfile<WorkoutProfile>();
             });
     }
 }
