@@ -12,12 +12,13 @@ namespace Backend.Repository
         public Workout AddWorkout(int userId, Workout workout)
         {
             workout.UserId = userId;
+            Workout x = Create(workout);
             return Create(workout);
         }
 
         public IEnumerable<Workout> GetAllWorkouts(int userId)
         {
-            return FindByCondition(u => u.Id == userId);
+            return FindByCondition(u => u.UserId == userId);
         }
     }
 }

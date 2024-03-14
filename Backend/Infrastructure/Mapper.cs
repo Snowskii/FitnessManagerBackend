@@ -17,6 +17,7 @@ namespace Backend.Infrastructure
             {
                 mc.AddProfile<UserProfile>();
                 mc.AddProfile<WorkoutProfile>();
+                mc.AddProfile<ExerciseProfile>();
             });
     }
 }

@@ -25,7 +25,7 @@ namespace Backend.Controllers
         [HttpGet]
         [Route("")]
         [Authorize]
-        public AllWorkoutsResponseModel GetAllWorkouts()
+        public AllWorkoutsResponseModel GetAllUserWorkouts()
         {
             var userId = getUserId(HttpContext.User.Identity as ClaimsIdentity);
             if (userId == null)
