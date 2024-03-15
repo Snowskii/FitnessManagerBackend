@@ -7,5 +7,7 @@ namespace Backend.Service
     {
         public AllExercisesResponseModel GetAllExercises(int userId);
         public ExerciseResponseModel AddExerciseToUser(int userId, ExerciseRequestModel exercise);
+
+        public void DeleteExerciseById(int exerciseId);
     }
 }

@@ -19,9 +19,18 @@ namespace Backend.Service
 
         public ExerciseResponseModel AddExerciseToUser(int userId, ExerciseRequestModel exercise)
         {
-            var newWorkout = _mapper.Map<ExerciseResponseModel>(_unitOfWork.ExerciseRepository.AddExerciseToUser(userId, _mapper.Map<Exercise>(exercise)));
+            var newExercise = _mapper.Map<ExerciseResponseModel>(_unitOfWork.ExerciseRepository.AddExerciseToUser(userId, _mapper.Map<Exercise>(exercise)));
             _unitOfWork.Save();
-            return newWorkout;
+            return newExercise;
+        }
+
+        public void DeleteExerciseById(int exerciseId)
+        {
+            _unitOfWork.ExerciseRepository.Delete(new Exercise()
+            {
+                Id = exerciseId
+            });
+            _unitOfWork.Save();
         }
 
         public AllExercisesResponseModel GetAllExercises(int userId)

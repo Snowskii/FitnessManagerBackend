@@ -49,6 +49,10 @@ namespace Backend.Service
         public RegisterUserResponseModel RegisterUser(RegisterUserModel model)
         {
             var registeredUser = _unitOfWork.UserRepository.RegisterUser(model);
+            if (registeredUser == null)
+            {
+                return null;
+            }
             _unitOfWork.Save();
 
             return _mapper.Map<RegisterUserResponseModel>(registeredUser);
