@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Backend.Models;
+using Backend.Models.RequestModels;
 using Backend.Models.ResponseModels;
 
 namespace Backend.Infrastructure.Profiles
@@ -9,6 +10,7 @@ namespace Backend.Infrastructure.Profiles
         public ExerciseProfile()
         {
             CreateMap<Exercise, ExerciseResponseModel>();
+            CreateMap<ExerciseRequestModel, Exercise>();
         }
     }
 }

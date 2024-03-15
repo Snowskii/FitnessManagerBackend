@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Backend.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository
 {
@@ -12,8 +13,9 @@ namespace Backend.Repository
         public Workout AddWorkout(int userId, Workout workout)
         {
             workout.UserId = userId;
-            Workout x = Create(workout);
-            return Create(workout);
+            var createdWorkout = Create(workout);
+            ApplicationDataContext.SaveChanges();
+            return createdWorkout;
         }
 
         public IEnumerable<Workout> GetAllWorkouts(int userId)

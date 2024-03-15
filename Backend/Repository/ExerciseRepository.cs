@@ -12,7 +12,9 @@ namespace Backend.Repository
         public Exercise AddExerciseToUser(int userId, Exercise exercise)
         {
             exercise.UserId = userId;
-            return Create(exercise);
+            var newExercise = Create(exercise);
+            ApplicationDataContext.SaveChanges();
+            return newExercise;
         }
 
         public IEnumerable<Exercise> GetAllExercises(int userId)

@@ -38,24 +38,31 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("")]
         [Authorize]
-        public ExerciseResponseModel AddExerciseToUser(int userId, ExerciseRequestModel exercise)
+        public ExerciseResponseModel AddExerciseToUser(ExerciseRequestModel exercise)
         {
-            return _exerciseService.AddExerciseToUser(userId, exercise);
+            var userId = getUserId(HttpContext.User.Identity as ClaimsIdentity);
+            if (userId == null)
+            {
+                HttpContext.Response.StatusCode = 401;
+                return null;
+            }
+            return _exerciseService.AddExerciseToUser((int) userId, exercise);
         }
 
-        //[HttpDelete]
-        //[Route("{exerciseId:int}")]
-        //[Authorize]
-        //public IActionResult DeleteExerciseById(int exerciseId) {
-        //    try
-        //    {
-        //        _exerciseService.DeleteExerciseById(exerciseId);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok();
-        //}
+        [HttpDelete]
+        [Route("{exerciseId:int}")]
+        [Authorize]
+        public IActionResult DeleteExerciseById(int exerciseId)
+        {
+            try
+            {
+                _exerciseService.DeleteExerciseById(exerciseId);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
     }
 }
