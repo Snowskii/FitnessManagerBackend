@@ -30,10 +30,6 @@ namespace Backend.Repository
 
         public User? RegisterUser(RegisterUserModel model)
         {
-            if (FindByCondition(u => u.Email == model.Email).SingleOrDefault() != null)
-            {
-                return null;
-            }
             var hasher = new PasswordHasher<RegisterUserModel>();
             var user = new User()
             {
@@ -41,10 +37,12 @@ namespace Backend.Repository
                 Email = model.Email,
                 Surname = model.Surname,
                 Password = hasher.HashPassword(model, model.Password),
+                Role = Role.User,
             };
             
             user = Create(user);
             ApplicationDataContext.SaveChanges();
+
             return user;
         }
     }
