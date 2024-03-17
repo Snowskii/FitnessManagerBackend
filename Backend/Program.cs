@@ -1,4 +1,5 @@
 using Backend;
+using Backend.DB;
 using Backend.Infrastructure;
 using Backend.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -54,6 +55,15 @@ else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<ApplicationDataContext>();
+    context.Database.EnsureCreated();
+    DBInitializer.Initialize(context);
 }
 
 app.UseSwagger();

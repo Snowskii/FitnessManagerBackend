@@ -29,9 +29,15 @@ namespace Backend.Controllers
         }
         [HttpPost]
         [Route("register")]
-        public RegisterUserResponseModel RegisterUser(RegisterUserModel model)
+        public ActionResult<RegisterUserResponseModel> RegisterUser(RegisterUserModel model)
         {
-            return _userService.RegisterUser(model);
+            try
+            {
+                return _userService.RegisterUser(model);
+            } catch { 
+                return BadRequest("You are already registered.");
+            }
+            
         }
 
         [HttpPost]

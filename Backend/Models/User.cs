@@ -4,6 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
 {
+    public enum Role
+    {
+        Admin,
+        User
+    }
     public class User
     {
         [Key]
@@ -18,6 +23,8 @@ namespace Backend.Models
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
+        [Required]
+        public Role Role { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public static int CountOfWorkoutsDone { get; set; }
         public List<UserMilestone> UserMilestones { get; set; } = [];
