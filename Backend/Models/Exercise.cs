@@ -26,7 +26,6 @@ namespace Backend.Models
 
         public User User { get; set; }
 
-        public int WorkoutId { get; set; }
         public List<Workout> Workouts { get; set; } = [];
 
         public List<WorkoutExercise> WorkoutExercises { get; set; } = [];

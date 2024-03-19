@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Backend
 {
@@ -10,6 +11,7 @@ namespace Backend
         public DbSet<Milestone> Milestones { get; set; }
         public ApplicationDataContext(DbContextOptions<ApplicationDataContext> options) : base(options) {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+          
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

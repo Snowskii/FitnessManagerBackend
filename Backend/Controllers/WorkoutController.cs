@@ -70,11 +70,21 @@ namespace Backend.Controllers
             try
             {
                 _workoutService.DeleteWorkoutById(workoutId);
-            } catch (Exception ex)
+            } catch (Exception)
             {
                 return NotFound();
             }
             return Ok();
         }
+
+        [HttpPut]
+        [Route("{workoutId:int}")]
+        [Authorize]
+        public ActionResult<WorkoutResponseModel?> UpdateWorkout(int workoutId, WorkoutUpdateRequestModel workout)
+        {
+            var updatedWorkout = _workoutService.UpdateWorkout(workoutId, workout);
+            return updatedWorkout == null ? NotFound() : updatedWorkout;
+        }
+
     }
 }

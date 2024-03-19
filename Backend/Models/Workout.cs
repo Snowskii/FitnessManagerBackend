@@ -17,8 +17,8 @@ namespace Backend.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public List<Exercise> Exercises { get; set; } = [];
+        public List<Exercise> Exercises { get; set; }
 
-        public List<WorkoutExercise> WorkoutsExercises { get; set; } = [];
+        public List<WorkoutExercise> WorkoutsExercises { get; set; }
     }
 }

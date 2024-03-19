@@ -11,6 +11,7 @@ namespace Backend.Infrastructure.Profiles
         {
             CreateMap<Workout, WorkoutResponseModel>();
             CreateMap<WorkoutRequestModel, Workout>();
+            CreateMap<WorkoutUpdateRequestModel, Workout>();
         }
     }
 }

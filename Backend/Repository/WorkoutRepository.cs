@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository
 {
+
     public class WorkoutRepository : RepositoryBase<Workout>, IWorkoutRepository
     {
         public WorkoutRepository(ApplicationDataContext dbContext) : base(dbContext)
@@ -20,7 +21,35 @@ namespace Backend.Repository
 
         public IEnumerable<Workout> GetAllWorkouts(int userId)
         {
-            return FindByCondition(u => u.UserId == userId);
+            var x = ApplicationDataContext
+                .Workouts
+                .Include(w => w.Exercises)
+                .Where(w => w.UserId == userId);
+            return x;
+        }
+
+        public Workout UpdateWorkout(int workoutId, Workout workout)
+        {
+            var work = ApplicationDataContext
+                .Workouts
+                .Include(w => w.Exercises)
+                .SingleOrDefault(w => w.Id == workoutId);
+
+            if (work == null)
+            {
+                throw new Exception("fdsaf");
+            }
+
+            work.Exercises.Clear();
+            var x = workout.WorkoutsExercises.Select(w => w.ExerciseId);
+            work.Exercises.AddRange(ApplicationDataContext.Exercises.Where(w => x.Contains(w.Id)));
+
+            work.Description = workout.Description;
+            work.Name = workout.Name;
+
+            ApplicationDataContext.SaveChanges();
+
+            return work;
         }
     }
 }
