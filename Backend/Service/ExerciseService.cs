@@ -41,5 +41,13 @@ namespace Backend.Service
                 Exercises = _mapper.Map<IEnumerable<ExerciseResponseModel>>(exercises)
             };
         }
+
+        public ExerciseResponseModel? UpdateExercise(int exerciseId, ExerciseUpdateRequestModel exercise)
+        {
+            var mapped = _mapper.Map<Exercise>(exercise);
+            var e = _unitOfWork.ExerciseRepository.UpdateExercise(exerciseId, mapped);
+
+            return _mapper.Map<ExerciseResponseModel>(e);
+        }
     }
 }

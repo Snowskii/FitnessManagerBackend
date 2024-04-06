@@ -9,5 +9,6 @@ namespace Backend.Service
         public ExerciseResponseModel AddExerciseToUser(int userId, ExerciseRequestModel exercise);
 
         public void DeleteExerciseById(int exerciseId);
+        public ExerciseResponseModel? UpdateExercise(int exerciseId, ExerciseUpdateRequestModel exercise);
     }
 }

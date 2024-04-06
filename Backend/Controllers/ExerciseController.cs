@@ -64,5 +64,14 @@ namespace Backend.Controllers
             }
             return Ok();
         }
+
+        [HttpPut]
+        [Route("{exerciseId:int}")]
+        [Authorize]
+        public ActionResult<ExerciseResponseModel?> UpdateWorkout(int exerciseId, ExerciseUpdateRequestModel exercise)
+        {
+            var updatedExercise = _exerciseService.UpdateExercise(exerciseId, exercise);
+            return updatedExercise == null ? NotFound() : updatedExercise;
+        }
     }
 }

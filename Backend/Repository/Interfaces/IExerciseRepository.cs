@@ -6,5 +6,7 @@ namespace Backend.Repository.Interfaces
     {
         public IEnumerable<Exercise> GetAllExercises(int userId);
         public Exercise AddExerciseToUser(int userId, Exercise exercise);
+
+        public Exercise UpdateExercise(int exerciseId, Exercise exercise);
     }
 }
