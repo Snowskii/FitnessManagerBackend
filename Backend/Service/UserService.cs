@@ -46,7 +46,7 @@ namespace Backend.Service
             return new LoginResponseModel() {Token = jwtToken};
         }
 
-        public RegisterUserResponseModel RegisterUser(RegisterUserModel model)
+        public RegisterUserResponseModel RegisterUser(RegisterUserModel model, JwtOptions jwtOptions)
         {
             var registeredUser = _unitOfWork.UserRepository.RegisterUser(model);
             if (registeredUser == null)
@@ -55,7 +55,12 @@ namespace Backend.Service
             }
             _unitOfWork.Save();
 
-            return _mapper.Map<RegisterUserResponseModel>(registeredUser);
+            var jwtToken = CreateAccessToken(jwtOptions, registeredUser, TimeSpan.FromMinutes(60));
+
+            var response = _mapper.Map<RegisterUserResponseModel>(registeredUser);
+            response.Token = jwtToken;
+
+            return response;
         }
 
         private string CreateAccessToken(JwtOptions jwtOptions,

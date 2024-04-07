@@ -29,11 +29,11 @@ namespace Backend.Controllers
         }
         [HttpPost]
         [Route("register")]
-        public ActionResult<RegisterUserResponseModel> RegisterUser(RegisterUserModel model)
+        public ActionResult<RegisterUserResponseModel> RegisterUser(RegisterUserModel model, JwtOptions jwtOptions)
         {
             try
             {
-                return _userService.RegisterUser(model);
+                return _userService.RegisterUser(model, jwtOptions);
             } catch { 
                 return BadRequest("You are already registered.");
             }
