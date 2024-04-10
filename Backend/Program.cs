@@ -7,11 +7,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 builder.Services.ConfigureUnitOfWork();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureMapper();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://fitnessmanager.com",
+                                              "http://www.fitnessmanager.com");
+                      });
+});
 
 var jwtOptions = builder.Configuration
     .GetSection("JwtOptions")
@@ -46,6 +58,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 if (app.Environment.IsDevelopment())
 {
