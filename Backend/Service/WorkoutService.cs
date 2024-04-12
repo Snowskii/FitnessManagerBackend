@@ -3,6 +3,7 @@ using Backend.Infrastructure;
 using Backend.Models;
 using Backend.Models.RequestModels;
 using Backend.Models.ResponseModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Service
 {
@@ -44,7 +45,9 @@ namespace Backend.Service
 
         public WorkoutResponseModel? GetWorkoutById(int workoutId)
         {
-            var workout = _unitOfWork.WorkoutRepository.FindByCondition(w => w.Id == workoutId).SingleOrDefault();
+            var workout = _unitOfWork.WorkoutRepository.FindByCondition(w => w.Id == workoutId)
+                .Include(w => w.Exercises)
+                .SingleOrDefault();
 
             return workout == null ? null : _mapper.Map<WorkoutResponseModel>(workout);
         }
