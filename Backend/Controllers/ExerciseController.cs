@@ -68,7 +68,7 @@ namespace Backend.Controllers
         [HttpPut]
         [Route("{exerciseId:int}")]
         [Authorize]
-        public ActionResult<ExerciseResponseModel?> UpdateWorkout(int exerciseId, ExerciseUpdateRequestModel exercise)
+        public ActionResult<ExerciseResponseModel?> UpdateExercise(int exerciseId, ExerciseUpdateRequestModel exercise)
         {
             var updatedExercise = _exerciseService.UpdateExercise(exerciseId, exercise);
             return updatedExercise == null ? NotFound() : updatedExercise;
