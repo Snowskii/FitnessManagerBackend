@@ -12,6 +12,7 @@ namespace Backend.Models
         public string Name { get; set; }
         [MaxLength(1024)]
         public string Description { get; set; }
+        
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public int UserId { get; set; }

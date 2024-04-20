@@ -54,7 +54,14 @@ namespace Backend.Service
 
         public WorkoutResponseModel? UpdateWorkout(int userId, int workoutId, WorkoutUpdateRequestModel workout)
         {
-            var mapped = _mapper.Map<Workout>(workout);
+            var mapped = _mapper
+                .Map<WorkoutUpdateRequestModel, Workout>(
+                workout,
+                opt => opt.AfterMap(
+                    (src, dest) => dest.WorkoutsExercises = src.ExerciseIds
+                    .Select(id => new WorkoutExercise() { ExerciseId = id, WorkoutId = workoutId })
+                    .ToList())
+            );
             var w = _unitOfWork.WorkoutRepository.UpdateWorkout(userId, workoutId, mapped);
             return _mapper.Map<WorkoutResponseModel>(w);
         }
