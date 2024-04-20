@@ -10,10 +10,7 @@ namespace Backend.Repository
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository 
     {
-        public UserRepository(ApplicationDataContext dbContext): base(dbContext)
-        {
-
-        }
+        public UserRepository(ApplicationDataContext dbContext) : base(dbContext) { }
 
         public User? LoginUser(LoginUserModel model)
         {

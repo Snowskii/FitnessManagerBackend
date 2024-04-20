@@ -7,6 +7,6 @@ namespace Backend.Repository.Interfaces
         public IEnumerable<Workout> GetAllWorkouts(int userId);
         public Workout AddWorkout(int userId, Workout workout);
 
-        public Workout UpdateWorkout(int workoutId, Workout workout);
+        public Workout UpdateWorkout(int userId, int workoutId, Workout workout);
     }
 }

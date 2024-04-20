@@ -4,7 +4,6 @@ using Backend.Infrastructure.Authentication;
 using Backend.Models;
 using Backend.Models.RequestModels;
 using Backend.Models.ResponseModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -46,7 +45,7 @@ namespace Backend.Service
             return new LoginResponseModel() {Token = jwtToken};
         }
 
-        public RegisterUserResponseModel RegisterUser(RegisterUserModel model, JwtOptions jwtOptions)
+        public RegisterUserResponseModel? RegisterUser(RegisterUserModel model, JwtOptions jwtOptions)
         {
             var registeredUser = _unitOfWork.UserRepository.RegisterUser(model);
             if (registeredUser == null)
@@ -80,9 +79,6 @@ namespace Backend.Service
                 new Claim("name", user.Name),
                 new Claim("aud", jwtOptions.Audience)
             };
-
-            //var roleClaims = permissions.Select(x => new Claim("role", x));
-            //claims.AddRange(roleClaims);
 
             var token = new JwtSecurityToken(
                 issuer: jwtOptions.Issuer,

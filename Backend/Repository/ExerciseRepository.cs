@@ -6,15 +6,14 @@ namespace Backend.Repository
 {
     public class ExerciseRepository : RepositoryBase<Exercise>, IExerciseRepository
     {
-        public ExerciseRepository(ApplicationDataContext dbContext) : base(dbContext)
-        {
-        }
+        public ExerciseRepository(ApplicationDataContext dbContext) : base(dbContext) { }
 
         public Exercise AddExerciseToUser(int userId, Exercise exercise)
         {
             exercise.UserId = userId;
             var newExercise = Create(exercise);
             ApplicationDataContext.SaveChanges();
+
             return newExercise;
         }
 
@@ -23,26 +22,26 @@ namespace Backend.Repository
             return FindByCondition(e => e.UserId == userId);
         }
 
-        public Exercise UpdateExercise(int exerciseId, Exercise exercise)
+        public Exercise UpdateExercise(int exerciseId, Exercise updatedExercise)
         {
-            var exer = ApplicationDataContext
+            var foundExercise = ApplicationDataContext
                 .Exercises
                 .SingleOrDefault(e => e.Id == exerciseId);
 
-            if (exer == null)
+            if (foundExercise == null)
             {
-                throw new Exception("Couldnt be found");
+                throw new Exception($"Exercise with ID: {exerciseId} couldnt be found.");
             }
 
-            exer.Name = exercise.Name;
-            exer.Sets = exercise.Sets;
-            exer.UserId = exercise.UserId;
-            exer.TypeAmount = exercise.TypeAmount;
-            exer.Type = exercise.Type;
+            foundExercise.Name = updatedExercise.Name;
+            foundExercise.Sets = updatedExercise.Sets;
+            foundExercise.UserId = updatedExercise.UserId;
+            foundExercise.TypeAmount = updatedExercise.TypeAmount;
+            foundExercise.Type = updatedExercise.Type;
 
             ApplicationDataContext.SaveChanges();
 
-            return exer;
+            return foundExercise;
         }
     }
 }

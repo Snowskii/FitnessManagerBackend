@@ -9,7 +9,7 @@ namespace Backend.Service
     {
         public UserProfileResponseModel GetUserProfile(int Id);
 
-        public RegisterUserResponseModel RegisterUser(RegisterUserModel model, JwtOptions jwtOptions);
+        public RegisterUserResponseModel? RegisterUser(RegisterUserModel model, JwtOptions jwtOptions);
 
         public LoginResponseModel LoginUser(LoginUserModel model, JwtOptions jwtOptions);
     }

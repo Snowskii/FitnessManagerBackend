@@ -52,11 +52,10 @@ namespace Backend.Service
             return workout == null ? null : _mapper.Map<WorkoutResponseModel>(workout);
         }
 
-        public WorkoutResponseModel? UpdateWorkout(int workoutId, WorkoutUpdateRequestModel workout)
+        public WorkoutResponseModel? UpdateWorkout(int userId, int workoutId, WorkoutUpdateRequestModel workout)
         {
             var mapped = _mapper.Map<Workout>(workout);
-            var w = _unitOfWork.WorkoutRepository.UpdateWorkout(workoutId, mapped);
-
+            var w = _unitOfWork.WorkoutRepository.UpdateWorkout(userId, workoutId, mapped);
             return _mapper.Map<WorkoutResponseModel>(w);
         }
     }

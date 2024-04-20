@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.Infrastructure;
+using Backend.Models;
 using Backend.Models.RequestModels;
 using Backend.Models.ResponseModels;
 using Backend.Service;
@@ -18,19 +19,15 @@ namespace Backend.Controllers
             _exerciseService = exerciseService;
         }
 
-        private int? getUserId(ClaimsIdentity identity) => identity == null ? null : Convert.ToInt32(identity.FindFirst("id").Value);
-
-
         [HttpGet]
         [Route("")]
         [Authorize]
-        public AllExercisesResponseModel GetAllUserExercises()
+        public ActionResult<AllExercisesResponseModel?> GetAllUserExercises()
         {
-            var userId = getUserId(HttpContext.User.Identity as ClaimsIdentity);
+            var userId = Utils.getUserId(HttpContext.User.Identity as ClaimsIdentity);
             if (userId == null)
             {
-                HttpContext.Response.StatusCode = 401;
-                return null;
+                return NotFound();
             }
             return _exerciseService.GetAllExercises((int)userId);
         }
@@ -38,13 +35,12 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("")]
         [Authorize]
-        public ExerciseResponseModel AddExerciseToUser(ExerciseRequestModel exercise)
+        public ActionResult<ExerciseResponseModel?> AddExerciseToUser(ExerciseRequestModel exercise)
         {
-            var userId = getUserId(HttpContext.User.Identity as ClaimsIdentity);
+            var userId = Utils.getUserId(HttpContext.User.Identity as ClaimsIdentity);
             if (userId == null)
             {
-                HttpContext.Response.StatusCode = 401;
-                return null;
+                return NotFound();
             }
             return _exerciseService.AddExerciseToUser((int) userId, exercise);
         }
@@ -58,7 +54,7 @@ namespace Backend.Controllers
             {
                 _exerciseService.DeleteExerciseById(exerciseId);
             }
-            catch (Exception ex)
+            catch
             {
                 return NotFound();
             }

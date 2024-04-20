@@ -21,35 +21,37 @@ namespace Backend.Repository
 
         public IEnumerable<Workout> GetAllWorkouts(int userId)
         {
-            var x = ApplicationDataContext
+            var workouts = ApplicationDataContext
                 .Workouts
-                .Include(w => w.Exercises)
-                .Where(w => w.UserId == userId);
-            return x;
+                .Include(workout => workout.Exercises)
+                .Where(workout => workout.UserId == userId);
+            return workouts;
         }
 
-        public Workout UpdateWorkout(int workoutId, Workout workout)
+        public Workout UpdateWorkout(int userId, int workoutId, Workout updatedWorkout)
         {
-            var work = ApplicationDataContext
+            var foundWorkout = ApplicationDataContext
                 .Workouts
                 .Include(w => w.Exercises)
                 .SingleOrDefault(w => w.Id == workoutId);
 
-            if (work == null)
+            if (foundWorkout == null)
             {
-                throw new Exception("fdsaf");
+                throw new Exception($"Workout with ID: {workoutId} couldnt be found.");
             }
 
-            work.Exercises.Clear();
-            var x = workout.WorkoutsExercises.Select(w => w.ExerciseId);
-            work.Exercises.AddRange(ApplicationDataContext.Exercises.Where(w => x.Contains(w.Id)));
+            foundWorkout.Exercises.Clear();
+            var exerciseIds = updatedWorkout.WorkoutsExercises.Select(workout => workout.ExerciseId);
+            foundWorkout.Exercises
+                .AddRange(ApplicationDataContext.Exercises
+                .Where(e => exerciseIds.Contains(e.Id)));
 
-            work.Description = workout.Description;
-            work.Name = workout.Name;
+            foundWorkout.Description = updatedWorkout.Description;
+            foundWorkout.Name = updatedWorkout.Name;
 
             ApplicationDataContext.SaveChanges();
 
-            return work;
+            return foundWorkout;
         }
     }
 }

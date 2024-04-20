@@ -1,9 +1,11 @@
-﻿using Backend.Models;
+﻿using Backend.Infrastructure;
+using Backend.Models;
 using Backend.Models.RequestModels;
 using Backend.Models.ResponseModels;
 using Backend.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 using System.Net;
 using System.Security.Claims;
 
@@ -82,9 +84,19 @@ namespace Backend.Controllers
         [Authorize]
         public ActionResult<WorkoutResponseModel?> UpdateWorkout(int workoutId, WorkoutUpdateRequestModel workout)
         {
-            var updatedWorkout = _workoutService.UpdateWorkout(workoutId, workout);
-            return updatedWorkout == null ? NotFound() : updatedWorkout;
+            try
+            {
+                int? userId = Utils.getUserId(HttpContext.User.Identity as ClaimsIdentity);
+                if (userId == null)
+                {
+                    return NotFound();
+                }
+                var updatedWorkout = _workoutService.UpdateWorkout((int) userId, workoutId, workout);
+                return updatedWorkout;
+            } catch 
+            {
+                return NotFound();
+            }
         }
-
     }
 }
